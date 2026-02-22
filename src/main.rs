@@ -5,6 +5,7 @@ use bevy::{
     render::render_resource::{TextureDimension, TextureFormat, TextureUsages},
     ui::{RelativeCursorPosition, widget::ViewportNode},
 };
+
 fn main() {
     App::new()
         .add_plugins((DefaultPlugins, MeshPickingPlugin))

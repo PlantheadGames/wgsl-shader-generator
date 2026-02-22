@@ -5,10 +5,9 @@ edition = "2024"
 
 
 [dependencies]
-bevy = { version = "0.18", features = ["dynamic_linking", "bevy_picking", 
-#"file_watcher", "embedded_watcher"
+bevy = { version = "0.18", features = ["dynamic_linking", "bevy_picking", "file_watcher", "embedded_watcher"
 ] }
-#criterion = "0.8.2"
+criterion = {version = "0.8.2", features = ["html_reports"]}
 
 [dev-dependencies]
 
@@ -22,3 +21,6 @@ too_many_arguments = "allow"
 type_complexity = "allow"
 
 
+[[bench]]
+name = "my_benchmark"
+harness = false
