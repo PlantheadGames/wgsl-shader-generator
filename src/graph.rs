@@ -8,30 +8,34 @@ type NodeId = usize;
 ///This struct will be the end graph structure showing all the links between the ingoing and outgoing ports on the node. 
 
 #[derive(Debug)]
-struct Graph<T>{
-    nodes: HashMap<NodeId, ShaderNode<T>>,
-    incoming: HashMap<NodeId, Vec<NodeId>>,
-    outgoing: HashMap<NodeId, Vec<NodeId>>,
-    next_id: NodeId,
+pub struct Graph<T>{
+    pub nodes: HashMap<NodeId, ShaderNode<T>>,
+    pub incoming_connections: HashMap<NodeId, Vec<NodeId>>,
+    pub outgoing_connections: HashMap<NodeId, Vec<NodeId>>,
+    pub next_id: NodeId,
 }
 
 ///This is the nodes themselves. this will be a more generic structure that the overall nodes will
 ///conform. each node will store its own state that then gets passed up to the graph. 
-#[derive(Debug)]
-struct ShaderNode<T>{
-    id: NodeId,
-    data: T,
+#[derive(Debug, Copy, Clone)]
+pub struct ShaderNode<T>{
+    pub incoming_connections_type: Datatype,
+    pub outgoing_connections_type: Datatype,
+    pub id: NodeId,
+    pub data: T,
 }
 
 ///The datatype enum will be used for the core type logic of the nodes. This will determine the
 ///input or outputs of the nodes are valid.
-#[derive(Debug)]
-enum Datatype{
+#[derive(Debug, PartialEq, Copy, Clone)]
+pub enum Datatype{
     Float,
     Vec2,
     Vec3,
     Vec4,
-    Mat4
+    Mat4,
+    Str
+
 }
 
 ///Define the node itself to a given type. This may be changed depending on the number of nodes to
@@ -43,35 +47,51 @@ enum NodeKind{
     Divide,
 
 }
+impl<T> ShaderNode<T>{
+    pub fn new(id: NodeId, data: T, datatype: Datatype)-> Self{
+        Self{
+            incoming_connections_type: datatype,
+            outgoing_connections_type: datatype,
+            id,
+            data,
+        }
+    }
+}
 
-impl<T> for Graph<T> {
-    fn new() -> Self {
+
+impl<T> Graph<T> {
+    pub fn new() -> Self {
         Self {
             nodes: HashMap::new(),
-            incoming: HashMap::new(),
-            outgoing: HashMap::new(),
+            incoming_connections: HashMap::new(),
+            outgoing_connections: HashMap::new(),
             next_id: 0
         }
     }
-    fn add_node(&mut self, data: T) -> NodeId{
+    pub fn add_node(&mut self, data: T, datatype: Datatype) -> NodeId{
         let id = self.next_id;
         self.next_id += 1;
-        self.nodes.insert(id, Node {id, data});
-        self.incoming.insert(id, Vec::new());
-        self.outgoing.insert(id, Vec::new());
+        self.nodes.insert(id, ShaderNode::new(id, data, datatype));
+        self.incoming_connections.insert(id, Vec::new());
+        self.outgoing_connections.insert(id, Vec::new());
         id
     }
-    fn add_edge(&mut self, from: NodeId, to: NodeId) {
-        self.outgoing.get_mut(&from).unwrap().push(to);
-        self.incoming.get_mut(&to).unwrap().push(from);
+    pub fn add_edge(&mut self, source_node: ShaderNode<T>, destination_node: ShaderNode<T>) {
+        if source_node.outgoing_connections_type == destination_node.incoming_connections_type{
+            self.outgoing_connections.get_mut(&source_node.id).unwrap().push(destination_node.id);
+            self.incoming_connections.get_mut(&destination_node.id).unwrap().push(source_node.id);
+        }
     }
 
-    fn get_inputs(&self, node: NodeId) -> Option<&Vec<NodeId>> {
-        self.incoming.get(&node)
+    pub fn get_inputs(&self, node: NodeId) -> Option<&Vec<NodeId>> {
+        let vec = self.incoming_connections.get(&node);
+        vec
     }
 
-    fn get_outputs(&self, node: NodeId) -> Option<&Vec<NodeId>> {
-        self.outgoing.get(&node)
+    pub fn get_outputs(&self, node: NodeId) -> Option<&Vec<NodeId>> {
+        let vec = self.outgoing_connections.get(&node);
+        vec
+
     }
 }
 
