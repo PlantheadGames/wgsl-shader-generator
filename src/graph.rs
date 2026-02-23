@@ -48,10 +48,10 @@ enum NodeKind{
 
 }
 impl<T> ShaderNode<T>{
-    pub fn new(id: NodeId, data: T, datatype: Datatype)-> Self{
+    pub fn new(id: NodeId, data: T, incoming: Datatype, outgoing: Datatype)-> Self{
         Self{
-            incoming_connections_type: datatype,
-            outgoing_connections_type: datatype,
+            incoming_connections_type: incoming,
+            outgoing_connections_type: outgoing,
             id,
             data,
         }
@@ -68,10 +68,10 @@ impl<T> Graph<T> {
             next_id: 0
         }
     }
-    pub fn add_node(&mut self, data: T, datatype: Datatype) -> NodeId{
+    pub fn add_node(&mut self, data: T, incoming: Datatype, outgoing: Datatype) -> NodeId{
         let id = self.next_id;
         self.next_id += 1;
-        self.nodes.insert(id, ShaderNode::new(id, data, datatype));
+        self.nodes.insert(id, ShaderNode::new(id, data, incoming, outgoing));
         self.incoming_connections.insert(id, Vec::new());
         self.outgoing_connections.insert(id, Vec::new());
         id
