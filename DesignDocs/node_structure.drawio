@@ -1,0 +1,60 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0" version="29.5.2">
+  <diagram name="Page-1" id="xt17pzoiXE4Z2bevFPYG">
+    <mxGraphModel dx="1420" dy="766" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="zu5LLOt79R8Xv0z2gtG2-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="320" width="280" x="40" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="zu5LLOt79R8Xv0z2gtG2-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Incoming port&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="280" x="40" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="zu5LLOt79R8Xv0z2gtG2-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;div&gt;Outgoing port&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="280" x="40" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="zu5LLOt79R8Xv0z2gtG2-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Data" vertex="1">
+          <mxGeometry height="60" width="280" x="40" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="zu5LLOt79R8Xv0z2gtG2-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="NodeId" vertex="1">
+          <mxGeometry height="60" width="280" x="40" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="zu5LLOt79R8Xv0z2gtG2-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Node" vertex="1">
+          <mxGeometry height="60" width="230" x="70" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="zu5LLOt79R8Xv0z2gtG2-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Node Structure Diagram" vertex="1">
+          <mxGeometry height="60" width="260" x="40" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="zu5LLOt79R8Xv0z2gtG2-11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="320" width="280" x="520" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="zu5LLOt79R8Xv0z2gtG2-12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Incoming port&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="280" x="520" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="zu5LLOt79R8Xv0z2gtG2-13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;div&gt;Outgoing port&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="280" x="520" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="zu5LLOt79R8Xv0z2gtG2-14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Data" vertex="1">
+          <mxGeometry height="60" width="280" x="520" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="zu5LLOt79R8Xv0z2gtG2-15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="NodeId" vertex="1">
+          <mxGeometry height="60" width="280" x="520" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="zu5LLOt79R8Xv0z2gtG2-16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Node" vertex="1">
+          <mxGeometry height="60" width="230" x="550" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="zu5LLOt79R8Xv0z2gtG2-17" edge="1" parent="1" source="zu5LLOt79R8Xv0z2gtG2-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.007;entryY=0.617;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;" target="zu5LLOt79R8Xv0z2gtG2-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="350" />
+              <mxPoint x="420" y="417" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zu5LLOt79R8Xv0z2gtG2-18" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;Basic node structure.&lt;/div&gt;&lt;div&gt;each node can have a very different purpose with different inputs or outputs.&amp;nbsp;&lt;br&gt;&amp;nbsp;need to be generic as you as there will be checks to match the incoming and outgoing data types.&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="690" x="70" y="640" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
