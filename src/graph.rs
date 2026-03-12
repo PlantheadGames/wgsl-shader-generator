@@ -5,8 +5,10 @@ use std::collections::HashMap;
 
 type NodeId = usize;
 
-///This struct will be the end graph structure showing all the links between the ingoing and outgoing ports on the node.
+#[derive(Resource)]
+pub struct GraphResource(pub Graph);
 
+///This struct will be the end graph structure showing all the links between the ingoing and outgoing ports on the node.
 #[derive(Debug)]
 pub struct Graph {
     pub nodes: HashMap<NodeId, ShaderNode>,
@@ -17,7 +19,7 @@ pub struct Graph {
 
 ///This is the nodes themselves. this will be a more generic structure that the overall nodes will
 ///conform. each node will store its own state that then gets passed up to the graph.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Component)]
 pub struct ShaderNode {
     pub incoming_connections_type: Datatype,
     pub outgoing_connections_type: Datatype,

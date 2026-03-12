@@ -5,12 +5,19 @@ use bevy::{
     render::render_resource::{TextureDimension, TextureFormat, TextureUsages},
     ui::{RelativeCursorPosition, widget::ViewportNode},
 };
+use crate::graph::*;
+mod graph;
+
+
+#[derive(Component)]
+struct TestMesh;
 
 fn main() {
     App::new()
         .add_plugins((DefaultPlugins, MeshPickingPlugin))
+        .insert_resource(GraphResource(Graph::new()))
         .add_systems(Startup, setup)
-        .add_systems(Update, cursor_show_position)
+        .add_systems(Update, (cursor_show_position, rotate_cube))
         .run();
 }
 
@@ -21,7 +28,12 @@ fn setup(
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
     // Spawn a UI camera
-    commands.spawn(Camera3d::default());
+    commands.spawn((Camera3d::default(),
+    AmbientLight{
+        brightness: 3000.0,
+        ..default()
+    },)
+    );
 
     // Set up an texture for the 3D camera to render to.
     // The size of the texture will be based on the viewport's ui size.
@@ -38,51 +50,52 @@ fn setup(
     // Spawn the 3D camera
     let camera = commands
         .spawn((
-            Camera3d::default(),
-            Camera {
-                // Render this camera before our UI camera
-                order: -1,
-                ..default()
-            },
-            RenderTarget::Image(image_handle.clone().into()),
+                Camera3d::default(),
+                Camera {
+                    // Render this camera before our UI camera
+                    order: -1,
+                    ..default()
+                },
+                RenderTarget::Image(image_handle.clone().into()),
         ))
         .id();
 
     commands.spawn((
-        Mesh3d(meshes.add(Cuboid::new(5.0, 5.0, 5.0))),
-        MeshMaterial3d(materials.add(Color::WHITE)),
-        Transform::from_xyz(0.0, 0.0, -10.0),
+            Mesh3d(meshes.add(Cuboid::new(5.0, 5.0, 5.0))),
+            MeshMaterial3d(materials.add(Color::WHITE)),
+            Transform::from_xyz(0.0, 0.0, -10.0),
+            TestMesh,
     ));
 
     commands
         .spawn((
-            Node {
-                position_type: PositionType::Absolute,
-                top: px(50),
-                left: px(50),
-                width: px(200),
-                height: px(200),
-                border: UiRect::all(px(5)),
-                ..default()
-            },
-            BorderColor::all(Color::WHITE),
-            ViewportNode::new(camera),
+                Node {
+                    position_type: PositionType::Relative,
+                    top: px(50),
+                    left: px(50),
+                    width: px(200),
+                    height: px(200),
+                    border: UiRect::all(px(5)),
+                    ..default()
+                },
+                BorderColor::all(Color::WHITE),
+                ViewportNode::new(camera),
         ))
         .observe(on_drag_viewport);
     commands
         .spawn((
-            Node {
-                position_type: PositionType::Absolute,
-                top: px(50),
-                left: px(50),
-                width: px(200),
-                height: px(200),
-                border: UiRect::all(px(5)),
-                ..default()
-            },
-            BackgroundColor(LinearRgba::BLUE.into()),
-            RelativeCursorPosition::default(),
-            BorderColor::all(Color::BLACK),
+                Node {
+                    position_type: PositionType::Relative,
+                    top: px(250),
+                    left: px(250),
+                    width: px(200),
+                    height: px(200),
+                    border: UiRect::all(px(5)),
+                    ..default()
+                },
+                BackgroundColor(LinearRgba::BLUE.into()),
+                RelativeCursorPosition::default(),
+                BorderColor::all(Color::BLACK),
         ))
         .observe(on_drag_viewport);
 }
@@ -104,4 +117,8 @@ fn cursor_show_position(position: Query<&RelativeCursorPosition>) {
             println!("position: {:#?}", position.normalized);
         }
     }
+}
+
+fn rotate_cube(mut transform: Single<&mut Transform, With<TestMesh>>){
+                transform.rotate(Quat::from_rotation_y(0.005));
 }
