@@ -16,7 +16,7 @@ fn main() {
     App::new()
         .add_plugins((DefaultPlugins, MeshPickingPlugin))
         .insert_resource(GraphResource(Graph::new()))
-        .add_systems(Startup, setup)
+        .add_systems(Startup, (setup,test_node_connections).chain())
         .add_systems(Update, (cursor_show_position, rotate_cube))
         .run();
 }
@@ -80,6 +80,11 @@ fn setup(
                 },
                 BorderColor::all(Color::WHITE),
                 ViewportNode::new(camera),
+                NodeObject{
+                    incoming: Datatype::Float,
+                    outgoing: Datatype::Float,
+                    shader_data: ShaderData::String("This is a node".to_string()),
+                }
         ))
         .observe(on_drag_viewport);
     commands
@@ -96,6 +101,11 @@ fn setup(
                 BackgroundColor(LinearRgba::BLUE.into()),
                 RelativeCursorPosition::default(),
                 BorderColor::all(Color::BLACK),
+                NodeObject{
+                    incoming: Datatype::Float,
+                    outgoing: Datatype::Float,
+                    shader_data: ShaderData::String("This is a different node".to_string()),
+                }
         ))
         .observe(on_drag_viewport);
 }
@@ -114,11 +124,21 @@ fn on_drag_viewport(drag: On<Pointer<Drag>>, mut node_query: Query<&mut Node>) {
 fn cursor_show_position(position: Query<&RelativeCursorPosition>) {
     for position in position {
         if position.normalized.is_some() {
-            println!("position: {:#?}", position.normalized);
+//            println!("position: {:#?}", position.normalized);
         }
     }
 }
 
 fn rotate_cube(mut transform: Single<&mut Transform, With<TestMesh>>){
-                transform.rotate(Quat::from_rotation_y(0.005));
+    transform.rotate(Quat::from_rotation_y(0.005));
 }
+
+fn test_node_connections(nodes: Query<&NodeObject>, 
+    mut graph: ResMut<GraphResource>){
+    for node in nodes{
+        graph.0.add_node(node.shader_data.clone(), node.incoming, node.outgoing);
+    }
+    println!("{:#?}", graph.0);
+
+}
+

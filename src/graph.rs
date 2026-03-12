@@ -16,6 +16,12 @@ pub struct Graph {
     pub outgoing_connections: HashMap<NodeId, Vec<NodeId>>,
     pub next_id: NodeId,
 }
+#[derive(Debug, Clone, Component)]
+pub struct NodeObject {
+    pub incoming: Datatype,
+    pub outgoing: Datatype,
+    pub shader_data: ShaderData,
+}
 
 ///This is the nodes themselves. this will be a more generic structure that the overall nodes will
 ///conform. each node will store its own state that then gets passed up to the graph.
@@ -29,7 +35,7 @@ pub struct ShaderNode {
 
 ///The datatype enum will be used for the core type logic of the nodes. This will determine the
 ///input or outputs of the nodes are valid.
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Clone,Copy)]
 pub enum Datatype {
     Float,
     Vec2,
@@ -41,7 +47,7 @@ pub enum Datatype {
 //// this node will hold the internal data of the shader. This will be the user defined input. for
 ///testing this will be a single value,
 /// TO DO expand nodes have multiple data values which can be turned on or off.  
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq,Clone)]
 pub enum ShaderData {
     Float(f32),
     Vec2(Vec2),
